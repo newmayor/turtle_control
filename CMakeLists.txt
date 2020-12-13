@@ -8,11 +8,9 @@ project(turtle_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-    roscpp
     rospy
     message_generation
     std_msgs
-
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,11 +47,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
+ add_message_files(
    FILES
    TurtleVel.msg
 #   Message2.msg
-# )
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -74,7 +72,7 @@ find_package(catkin REQUIRED COMPONENTS
    DEPENDENCIES
    std_msgs  # Or other packages containing msgs
    turtle_control
-# )
+ )
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -105,10 +103,12 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
+catkin_package(CATKIN_DEPENDS 
 #  INCLUDE_DIRS include
 #  LIBRARIES turtle_control
-  CATKIN_DEPENDS message_runtime
+  message_runtime
+  turtle_control
+  std_msgs
 #  DEPENDS system_lib
 )
 
