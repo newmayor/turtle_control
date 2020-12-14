@@ -8,8 +8,8 @@ project(turtle_control)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-    rospy
     message_generation
+    rospy
     std_msgs
 )
 
@@ -47,7 +47,7 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
- add_message_files(
+add_message_files(
    FILES
    TurtleVel.msg
 #   Message2.msg
@@ -68,10 +68,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
- generate_messages(
+generate_messages(
    DEPENDENCIES
    std_msgs  # Or other packages containing msgs
-   turtle_control
+   #turtle_control
  )
 
 ################################################
@@ -107,7 +107,7 @@ catkin_package(CATKIN_DEPENDS
 #  INCLUDE_DIRS include
 #  LIBRARIES turtle_control
   message_runtime
-  turtle_control
+  #turtle_control
   std_msgs
 #  DEPENDS system_lib
 )
