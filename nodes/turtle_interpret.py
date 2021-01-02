@@ -4,7 +4,8 @@ import rospy
 import math
 import time
 from turtle_control.msg import TurtleVel
-from turtlesim.msg import Pose
+from geometry_msgs.msg import Twist
+from turtlesim.msg import Poses
 
 def poseCallback(position_message):
     global x,y, yaw
@@ -55,7 +56,16 @@ def move(speed, distance, go_forward):
         if (distance_moved>distance):
             rospy.loginfo("destination reached")
             break
-              
+
+def handler_vel_translate(Twist):
+    TurtleVel = Twist()
+    return TurtleVel
+
+def vel_translate_server():
+    rospy.init_node('vel_translate_server') #rospy.init_node() first argument is just the name you want to python interpreter to call this method when called directly from the command line.
+    s = rospy.Service('vel_translate', VelTranslate, handler_vel_translate)
+    print("done sending service to client ")
+    rospy.spin()
 
 
 if __name__ == '__main__':
