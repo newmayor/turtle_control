@@ -7,12 +7,6 @@ import time
 from geometry_msgs.msg import Twist
 from turtle_interpret.srv import VelTranslate
 
-def poseCallback(position_message):
-    global x,y, yaw
-    x = position_message.x
-    y = position_message.y
-    yaw = position_message.theta
-
 
 
 def handler_vel_translate(Twist):
