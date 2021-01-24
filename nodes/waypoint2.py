@@ -11,7 +11,7 @@ if __name__ == '__main__':
     #define first topic. This will be main topic for cmd_vel commands
     topic_cmd_vel = '/turtle1/cmd_vel'
     #once turtlesim node is loaded, need to first publish command to move turtle
-    velocity_publisher = rospy.Publisher(topic_cmd_vel, Twist, queue_size=10)
+    publisher_velocity = rospy.Publisher(topic_cmd_vel, Twist, queue_size=10)
 
     #once turtle has moved, we need the position of the turtle. make a subscriber
     topic_turtle_pose = '/turtle1/pose' #define the topic
