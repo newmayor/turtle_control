@@ -10,6 +10,9 @@ from turtlesim.msg import Pose
 
 ti = turtle_interpret
 
+#pen command
+#self.pen(0,0,0,1,0) 
+
 def get_pose():
     
     turtle_pose_topic = 'turtle1/.pose'
@@ -25,7 +28,7 @@ def poseCallback(position_message):
 
 
 
-def move(speed, distance, go_forward):
+def waypoint(speed, distance, go_forward):
     global x,y
     x0 = x
     y0 = y
@@ -53,7 +56,7 @@ def move(speed, distance, go_forward):
         rospy.loginfo("moving forward")
         
         #prepare to move
-        #publish the speed and direction of turtle's motion using the "speed" and "direction" parameters passed into the move() method. Use them in the TurtleVel message
+        #publish the speed and direction of turtle's motion using the "speed" and "direction" parameters passed into the waypoint() method. Use them in the TurtleVel message
         turtle_vel_pub.publish(TurtleVel)
 
         loop_rate.sleep()
