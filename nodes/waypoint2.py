@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+##############################
+## NOTES ##
+## The idea for calculating Euclidian distance using distance formula taken from ros tutorials and Anis Koubba tutorials
+##############################
+
 import rospy
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Pose
@@ -19,18 +24,26 @@ if __name__ == '__main__':
     subscriber_pose = rospy.Subscriber(topic_turtle_pose, Pose, poseCallback)
 
     #define some kind of 'mover' function that will actually send desired positions to command the turtle to. 
-    mover()
+    mover(90)
 
     print('waypoint moving of turtle1 is complete.')
+
+def poseCallback(msg_pose): #placeholder. need to define a callback for the subscriber node
+    global x2, y2
+    x2 = msg_pose.x
+    y2 = msg_pose.y
+    #the callback allows for pose of turtle to be saved into global x2 and y2 to be accessible by other functions for later use.
 
 
 def mover(distance):
 
-    int x,y
-    y1 = y
-    x1 = x
+    global x2,y2
+    y1 = y2
+    x1 = x2
 
     distance_moved = 0.0 #init variable
+    msg_velocity = Twist #define msg_velocity to be Twist
+    msg_velocity.x = 2.0 #set speed of turtle to be 2.0 units
 
     #start moving the turtle
     while True:
@@ -49,7 +62,7 @@ def mover(distance):
             break #this exits the while True loop
     
     #once while loop is exited, the distance desired is achieved so now turtle can stop moving
-    msg_velocity.linear.x = 0 #set velocity command to 0
+    msg_velocity.x = 0 #set velocity command to 0
     publisher_velocity.publish(msg_velocity) #publish the 0 velocity command so turtle stops
-    
+
 
