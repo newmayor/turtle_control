@@ -2,8 +2,9 @@
 
 import rospy
 from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Pose
 
-
+import math
 
 if __name__ == '__main__':
     rospy.init_node('waypoint2')
@@ -21,3 +22,29 @@ if __name__ == '__main__':
     mover()
 
     print('waypoint moving of turtle1 is complete.')
+
+
+def mover(distance):
+
+    int x,y
+    y1 = y
+    x1 = x
+
+    distance_moved = 0.0 #init variable
+
+    #start moving the turtle
+    while True:
+        
+        #start publishing velocity commands
+        publisher_velocity.publish(msg_velocity)
+
+        rospy.Rate.sleep()
+
+        #need some way to calcualte distance traveled
+        distance_moved = math.sqrt(((y2-y1)**2) + ((x2-x1)**2)) #basic distance formula
+
+        print("turtle has moved %d pixels\r\n", distance_moved)
+        if (distance_moved >= distance): #check for terminating condition
+            print("reached destination\r\n")
+            break #this exits the while True loop
+        
