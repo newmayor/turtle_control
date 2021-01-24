@@ -47,4 +47,9 @@ def mover(distance):
         if (distance_moved >= distance): #check for terminating condition
             print("reached destination\r\n")
             break #this exits the while True loop
-        
+    
+    #once while loop is exited, the distance desired is achieved so now turtle can stop moving
+    msg_velocity.linear.x = 0 #set velocity command to 0
+    publisher_velocity.publish(msg_velocity) #publish the 0 velocity command so turtle stops
+    
+
