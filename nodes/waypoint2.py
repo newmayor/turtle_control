@@ -60,7 +60,7 @@ def spin(publisher_velocity , subscriber_pose, desired_deg): #angle is in degree
     
     global yaw #angular data coming from Pose callback function
     desired_rad = math.radians(desired_deg)
-
+    yaw0 = yaw
     
     msg_velocity = Twist() #define msg_velocity to be Twist
     msg_velocity.angular.z = abs(2) #set speed of turtle to be 2.0 units
@@ -78,7 +78,7 @@ def spin(publisher_velocity , subscriber_pose, desired_deg): #angle is in degree
         #angle_moved = desired_rad - yaw #check difference b/w desired_rad angle to yaw pose
 
         print("turtle has turned %d deg\r\n", math.radians(yaw))
-        if (yaw >= desired_rad): #check for terminating condition
+        if (yaw >= desired_rad + yaw0): #check for terminating condition
             print("reached destination\r\n")
             break #this exits the while True loop
     
@@ -104,6 +104,17 @@ if __name__ == '__main__':
     
     mover(publisher_velocity ,1)
     spin(publisher_velocity, subscriber_pose, 90)
+    time.sleep(1)
+    mover(publisher_velocity ,1)
+    spin(publisher_velocity, subscriber_pose, 90)
+    time.sleep(1)
+    mover(publisher_velocity ,1)
+    spin(publisher_velocity, subscriber_pose, 90)
+    time.sleep(1)
+    mover(publisher_velocity ,1)
+    spin(publisher_velocity, subscriber_pose, 90)
+    time.sleep(1)
+    
 
     print('waypoint moving of turtle1 is complete.')
 
