@@ -8,10 +8,10 @@ Unless otherwise specified, list the command and all arguments that you passed t
 ## Setup Instructions
 1. Compile the workspace by executing `catkin_make`
 2. Initialize the ROS environment (i.e., set the necessary ROS environment variables) by executing `source devel/setup.bash`
-3. Run the launchfile `numair@numair-pc:~/catkin_ws/src/crazy_turtle/launch` by executing `roslaunch`
+3. Run the launchfile `~/catkin_ws/src/crazy_turtle/launch` by executing `roslaunch`
 4. When running you can see a visual depiction of the ROS graph using the `rqt_graph` command.
    The ROS graph, including all topics and node labels, looks like:
-   ![<The ROS Graph>](https://github.com/newmayor/turtle_control/blob/main/graph_step4.png)
+   ![see screenshot in git:](https://github.com/newmayor/turtle_control/blob/main/graph_step4.png)
 
 ## Runtime Information
 The `launchfile` from above should be running when executing these commands.
@@ -59,7 +59,7 @@ The `launchfile` from above should be running when executing these commands.
    /turtle1/teleport_relative
 
    ```
-9. Use the ROS command `rosservice type` to view information about the `/switch` service.
+9. Use the ROS command `rosservice info /switch` to view information about the `/switch` service.
    The type of the `/switch` service is `crazy_turtle/Switch` and it is offered by
    the `/mover` node.
 
@@ -80,29 +80,17 @@ The `launchfile` from above should be running when executing these commands.
     ```
 
 ## Package and Dependencies
-11. Use the ROS command `` to list the immediate (direct) dependencies of `crazy_turtle`
+11. Use the ROS command `` rospack depends1 crazy_turtle `crazy_turtle`
    The output of the command looks like
    ```
+   rospy
+   message_runtime
+   turtlesim
    ```
-12. Use the ROS command `rosservice list` to list the types of services defined by `crazy_turtle`
+12. Use the ROS command `rossrv pacakge crazy_turtle` to list the types of services defined by `crazy_turtle`
     The output of the command looks like
     ```
-    /clear
-   /kill
-   /mover/get_loggers
-   /mover/set_logger_level
-   /reset
-   /roaming_turtle/get_loggers
-   /roaming_turtle/set_logger_level
-   /rosout/get_loggers
-   /rosout/set_logger_level
-   /rostopic_34698_1607221414023/get_loggers
-   /rostopic_34698_1607221414023/set_logger_level
-   /spawn
-   /switch
-   /turtle1/set_pen
-   /turtle1/teleport_absolute
-   /turtle1/teleport_relative
+    crazy_turtle/Switch
 
     ```
 ## Live Interaction
