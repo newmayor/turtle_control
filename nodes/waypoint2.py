@@ -56,16 +56,18 @@ def mover(publisher_velocity ,distance):
     publisher_velocity.publish(msg_velocity) #publish the 0 velocity command so turtle stops
 
 #use the same structure as linear mover() function to define a spin() function that will change angle of turtle
-def spin(publisher_velocity , subscriber_pose, desired_deg): #angle is in degrees for human readability
+def spin(publisher_velocity , desired_deg): #angle is in degrees for human readability
     
     global yaw #angular data coming from Pose callback function
-    desired_rad = math.radians(desired_deg)
+    desired_rad = math.radians(desired_deg) #convert degrees to radians bc Twist() message is in rads
     yaw0 = yaw
     
     msg_velocity = Twist() #define msg_velocity to be Twist
     msg_velocity.angular.z = abs(2) #set speed of turtle to be 2.0 units
-    
-    rate = rospy.Rate(10)
+    msg_velocity_deg = math.degrees(msg_velocity.angular.z)
+
+    rate = rospy.Rate(100)
+    t0 = rospy.Time.now().to_sec()
 
     #start moving the turtle
     while True:
@@ -73,12 +75,17 @@ def spin(publisher_velocity , subscriber_pose, desired_deg): #angle is in degree
         #start publishing velocity commands to rotate turtle
         publisher_velocity.publish(msg_velocity)
 
+        t1 = rospy.Time.now().to_sec()
+        rospy.loginfo("current time: %s", t1)
+        curr_angle = (t1-t0)*msg_velocity_deg
         rate.sleep()
 
-        #angle_moved = desired_rad - yaw #check difference b/w desired_rad angle to yaw pose
+        rospy.loginfo("target angle : %s degrees", math.degrees(desired_deg))
+        
 
-        print("turtle has turned %d deg\r\n", math.radians(yaw))
-        if (yaw >= desired_rad + yaw0): #check for terminating condition
+        rospy.loginfo("turtle yaw position : %s", math.degrees(curr_angle))
+        print(" ")
+        if (curr_angle >= desired_deg): #check for terminating condition
             print("reached destination\r\n")
             break #this exits the while True loop
     
@@ -102,17 +109,17 @@ if __name__ == '__main__':
 
     #define some kind of 'mover' function that will actually send desired positions to command the turtle to. 
     
-    mover(publisher_velocity ,1)
-    spin(publisher_velocity, subscriber_pose, 90)
+    mover(publisher_velocity ,2)
+    spin(publisher_velocity, 90)
     time.sleep(1)
-    mover(publisher_velocity ,1)
-    spin(publisher_velocity, subscriber_pose, 90)
+    mover(publisher_velocity ,2)
+    spin(publisher_velocity, 90)
     time.sleep(1)
-    mover(publisher_velocity ,1)
-    spin(publisher_velocity, subscriber_pose, 90)
+    mover(publisher_velocity ,2)
+    spin(publisher_velocity, 90)
     time.sleep(1)
-    mover(publisher_velocity ,1)
-    spin(publisher_velocity, subscriber_pose, 90)
+    mover(publisher_velocity ,2)
+    spin(publisher_velocity, 90)
     time.sleep(1)
     
 
