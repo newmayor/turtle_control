@@ -2,13 +2,14 @@
 
 ##############################
 ## NOTES ##
-## The idea for calculating Euclidian distance using distance formula taken from ros tutorials and Anis Koubba tutorials
+
 ##############################
 
 import rospy
 from geometry_msgs.msg import Twist
 from geometry_msgs.msg import Vector3
 from turtlesim.msg import Pose
+import turtlesim.srv
 
 import math
 import time
@@ -45,7 +46,8 @@ def mover(publisher_velocity ,distance):
 
         #need some way to calcualte distance traveled
         distance_moved = math.sqrt(((y2-y1)**2) + ((x2-x1)**2)) #basic distance formula
-
+        ## The idea for calculating Euclidian distance using distance formula taken from ros tutorials and Anis Koubba tutorials
+        
         print("turtle has moved %d pixels\r\n", distance_moved)
         if (distance_moved >= distance): #check for terminating condition
             print("reached destination\r\n")
@@ -63,7 +65,7 @@ def spin(publisher_velocity , desired_deg): #angle is in degrees for human reada
     yaw0 = yaw
     
     msg_velocity = Twist() #define msg_velocity to be Twist
-    msg_velocity.angular.z = abs(2) #set speed of turtle to be 2.0 units
+    msg_velocity.angular.z = abs(0.5) #set speed of turtle to be 2.0 units
     msg_velocity_deg = math.degrees(msg_velocity.angular.z)
 
     rate = rospy.Rate(100)
@@ -106,6 +108,9 @@ if __name__ == '__main__':
     topic_turtle_pose = '/turtle1/pose' #define the topic
     subscriber_pose = rospy.Subscriber(topic_turtle_pose, Pose, poseCallback)
     time.sleep(2)
+    rospy.wait_for_service('spawn')
+    spawner = rospy.ServiceProxy('spawn', turtlesim.srv.Spawn)
+    spawner(4,2,0, "waypoint_turtle")
 
     #define some kind of 'mover' function that will actually send desired positions to command the turtle to. 
     

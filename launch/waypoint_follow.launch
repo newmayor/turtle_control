@@ -1,0 +1,5 @@
+<launch>
+    <node name = "turtlesim" pkg="turtlesim" type="turtlesim_node" />
+    <node name = "interpreter node" pkg="turt_control" type="turtle_interpet.py" />
+    <node name = "waypoint node" pkg="turtle_control" type="waypoint2.py" />
+</launch>
